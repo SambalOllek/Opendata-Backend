@@ -1,5 +1,9 @@
-package nu.t4.pendata.backend.entities;
+package nu.t4.opendata.backend.entities;
 
+/**
+ *
+ * @author Erik
+ */
 public class Item {
     int id;
     int userId;

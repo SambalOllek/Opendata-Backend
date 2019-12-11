@@ -1,4 +1,4 @@
-package nu.t4.pendata.backend;
+package nu.t4.opendata.backend;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

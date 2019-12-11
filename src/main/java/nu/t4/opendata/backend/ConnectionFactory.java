@@ -1,4 +1,4 @@
-package nu.t4.pendata.backend;
+package nu.t4.opendata.backend;
 
 import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;

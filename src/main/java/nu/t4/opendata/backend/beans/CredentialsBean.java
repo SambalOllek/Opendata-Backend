@@ -1,4 +1,4 @@
-package nu.t4.pendata.backend.beans;
+package nu.t4.opendata.backend.beans;
 
 import javax.ejb.Stateless;
 
