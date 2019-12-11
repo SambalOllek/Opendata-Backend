@@ -1,4 +1,4 @@
-package nu.t4.pendata.backend.resources;
+package nu.t4.pendata.backend;
 
 import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
