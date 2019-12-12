@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 11 dec 2019 kl 12:28
+-- Tid vid skapande: 12 dec 2019 kl 10:31
 -- Serverversion: 10.4.6-MariaDB
 -- PHP-version: 7.3.9
 
@@ -32,7 +32,15 @@ USE `opendata_db`;
 
 CREATE TABLE `item` (
   `id` int(11) NOT NULL COMMENT 'Item id (PRIMARY)',
-  `link` varchar(256) NOT NULL COMMENT 'Link to bytbil.com article. ex: bytbil.com/[LINK]'
+  `link` varchar(256) NOT NULL COMMENT 'Link to bytbil.com article. ex: bytbil.com/[LINK]',
+  `brand` varchar(32) NOT NULL COMMENT 'Bilens märke',
+  `regnum` varchar(16) NOT NULL COMMENT 'Regnummret till bilen',
+  `address` varchar(128) NOT NULL COMMENT 'Address till vart bilen finns',
+  `model` varchar(32) NOT NULL COMMENT 'Bilens modell',
+  `drivewheel` varchar(16) NOT NULL COMMENT 'fwd / rwd / 4wd',
+  `milage` int(11) NOT NULL COMMENT 'Hur många mil bilen gått',
+  `price` int(11) NOT NULL COMMENT 'Vad bilen säljs för',
+  `gearbox` varchar(16) NOT NULL COMMENT 'manuel / automat'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -69,6 +77,14 @@ CREATE TABLE `user_item_full_info` (
 ,`username` varchar(32)
 ,`item_id` int(11)
 ,`link` varchar(256)
+,`brand` varchar(32)
+,`regnum` varchar(16)
+,`address` varchar(128)
+,`model` varchar(32)
+,`drivewheel` varchar(16)
+,`milage` int(11)
+,`price` int(11)
+,`gearbox` varchar(16)
 );
 
 -- --------------------------------------------------------
@@ -78,7 +94,7 @@ CREATE TABLE `user_item_full_info` (
 --
 DROP TABLE IF EXISTS `user_item_full_info`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_item_full_info`  AS  select `user`.`id` AS `user_id`,`user`.`username` AS `username`,`item`.`id` AS `item_id`,`item`.`link` AS `link` from ((`user` join `item`) join `user_item`) where `user`.`id` = `user_item`.`user_id` and `item`.`id` = `user_item`.`item_id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_item_full_info`  AS  select `user`.`id` AS `user_id`,`user`.`username` AS `username`,`item`.`id` AS `item_id`,`item`.`link` AS `link`,`item`.`brand` AS `brand`,`item`.`regnum` AS `regnum`,`item`.`address` AS `address`,`item`.`model` AS `model`,`item`.`drivewheel` AS `drivewheel`,`item`.`milage` AS `milage`,`item`.`price` AS `price`,`item`.`gearbox` AS `gearbox` from ((`user` join `item`) join `user_item`) where `user`.`id` = `user_item`.`user_id` and `item`.`id` = `user_item`.`item_id` ;
 
 --
 -- Index för dumpade tabeller
