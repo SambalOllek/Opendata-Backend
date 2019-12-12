@@ -1,5 +1,6 @@
 package nu.t4.opendata.backend.beans;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,21 +10,23 @@ import nu.t4.opendata.backend.ConnectionFactory;
 import nu.t4.opendata.backend.entities.Item;
 
 import javax.ejb.Stateless;
+import javax.ws.rs.GET;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Stateless
 public class ItemBean {
 
-    public List<Item> getItems(int userId){
+    public List<Item> getItems(){
         try (Connection connection = ConnectionFactory.getConnection()){
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM user_item_full_info WHERE user_id = ?");
-            stmt.setInt(1, userId);
-            ResultSet data = stmt.executeQuery();
+            Statement stmt = connection.createStatement();
+            String sql = "SELECT * FROM item";
+            ResultSet data = stmt.executeQuery(sql);
             while (data.next()) {
                 //TODO update so that it takes all item values from db and adds to item obj
                 int itemId = data.getInt("Id");
                 String link = data.getString("link");
-                String username = data.getString("username");
             }
         } catch (Exception e) {
             //TODO: fixa logger
@@ -31,7 +34,7 @@ public class ItemBean {
         return null;
     }
 
-    public Item addItem(Item item){
+    Item addItem(Item item){
         try (Connection connection = ConnectionFactory.getConnection()){
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO item VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, item.getLink());
@@ -47,7 +50,7 @@ public class ItemBean {
         return null;
     }
 
-    public int removeItem(int itemId){
+    int removeItem(int itemId){
         try (Connection connection = ConnectionFactory.getConnection()){
             Statement stmt = connection.createStatement();
         } catch (Exception e) {
@@ -55,4 +58,6 @@ public class ItemBean {
         }
         return 0;
     }
+
+
 }
