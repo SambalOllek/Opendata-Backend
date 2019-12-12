@@ -3,19 +3,20 @@
   <ID>JAVA</ID>
   <OriginalElement>nu.t4.opendata.backend.resources</OriginalElement>
   <nodes>
-    <node x="0.0" y="184.0">nu.t4.opendata.backend.resources.ItemResource</node>
-    <node x="0.0" y="0.0">nu.t4.opendata.backend.resources.AuthResource</node>
+    <node x="0.0" y="204.0">nu.t4.opendata.backend.resources.UserItemResource</node>
+    <node x="0.0" y="0.0">nu.t4.opendata.backend.resources.ItemResource</node>
+    <node x="197.0" y="0.0">nu.t4.opendata.backend.resources.AuthResource</node>
   </nodes>
   <notes />
   <edges />
-  <settings layout="Hierarchic Group" zoom="1.0" x="110.0" y="161.5" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="208.5" y="171.5" />
   <SelectedNodes>
-    <node>nu.t4.opendata.backend.resources.ItemResource</node>
+    <node>nu.t4.opendata.backend.resources.UserItemResource</node>
   </SelectedNodes>
   <Categories>
     <Category>Inner Classes</Category>
-    <Category>Properties</Category>
     <Category>Methods</Category>
+    <Category>Properties</Category>
     <Category>Constructors</Category>
     <Category>Fields</Category>
   </Categories>

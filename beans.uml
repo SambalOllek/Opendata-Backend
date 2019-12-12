@@ -3,22 +3,21 @@
   <ID>JAVA</ID>
   <OriginalElement>nu.t4.opendata.backend.beans</OriginalElement>
   <nodes>
-    <node x="0.0" y="142.0">nu.t4.opendata.backend.beans.ItemBean</node>
-    <node x="0.0" y="0.0">nu.t4.opendata.backend.beans.CredentialsBean</node>
-    <node x="0.0" y="284.0">nu.t4.opendata.backend.beans.WebScraperBean</node>
+    <node x="-308.0" y="68.0">nu.t4.opendata.backend.beans.UserItemBean</node>
+    <node x="-320.0" y="-95.0">nu.t4.opendata.backend.beans.ItemBean</node>
+    <node x="-69.0" y="-95.0">nu.t4.opendata.backend.beans.CredentialsBean</node>
+    <node x="-16.0" y="76.0">nu.t4.opendata.backend.beans.WebScraperBean</node>
   </nodes>
   <notes />
   <edges />
-  <settings layout="Hierarchic Group" zoom="1.0" x="125.0" y="179.5" />
-  <SelectedNodes>
-    <node>nu.t4.opendata.backend.beans.CredentialsBean</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="1.0" x="-69.5" y="35.0" />
+  <SelectedNodes />
   <Categories>
-    <Category>Fields</Category>
-    <Category>Constructors</Category>
-    <Category>Methods</Category>
-    <Category>Properties</Category>
     <Category>Inner Classes</Category>
+    <Category>Fields</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
