@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>nu.t4.opendata.backend.entities</OriginalElement>
+  <nodes>
+    <node x="0.0" y="426.0">nu.t4.opendata.backend.entities.Credentials</node>
+    <node x="0.0" y="0.0">nu.t4.opendata.backend.entities.Item</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="254.0" y="282.5" />
+  <SelectedNodes>
+    <node>nu.t4.opendata.backend.entities.Credentials</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
