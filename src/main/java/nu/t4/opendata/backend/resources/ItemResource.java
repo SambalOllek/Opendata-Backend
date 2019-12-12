@@ -18,36 +18,24 @@ public class ItemResource {
     @EJB
     ItemBean itemBean;
 
+
     @GET
-    @Path("items/{userId}")
+    @Path("items")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getItems(@PathParam("userId") int userId){
-        List<Item> items = itemBean.getItems(userId);
+    public Response getItems(){
+        List<Item> items = itemBean.getItems();
         if(items.isEmpty()){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok(items).build();
     }
 
-    @DELETE
-    @Path("item/{itemId}")
-    public Response deleteItem(@PathParam("itemId") int itemId){
-        if(itemBean.removeItem(itemId) == 0){
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-        return Response.ok().build();
+    public int addItem(Item item){
+        return 0;
     }
 
-    @POST
-    @Path("item")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response postItem(Item item){
-        if(itemBean.addItem(item).getId() == 0){
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-        return Response.ok(item).build();
+    public int removeItem(int itemId){
+        return  0;
     }
-
 
 }
