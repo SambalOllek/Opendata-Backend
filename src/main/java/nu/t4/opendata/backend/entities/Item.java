@@ -11,14 +11,15 @@ public class Item {
     private String address;
     private String brand;
     private String model;
-    private String milage;
+    private int milage;
     private String fuel;
     private String gearbox;
     private String drivewheel;
     private String regnum;
     private int price;
+    private int year;
 
-    public Item(int id, int userId, String username, String link, String address, String brand, String model, String milage, String fuel, String gearbox, String drivewheel, String regnum, int price) {
+    public Item(int id, int userId, String username, String link, String address, String brand, String model, int milage, String fuel, String gearbox, String drivewheel, String regnum, int price, int year) {
         this.id = id;
         this.userId = userId;
         this.username = username;
@@ -32,9 +33,18 @@ public class Item {
         this.drivewheel = drivewheel;
         this.regnum = regnum;
         this.price = price;
+        this.year = year;
     }
 
     public Item() {
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getLink() {
@@ -133,11 +143,11 @@ public class Item {
         this.username = username;
     }
 
-    public String getMilage() {
+    public int getMilage() {
         return milage;
     }
 
-    public void setMilage(String milage) {
+    public void setMilage(int milage) {
         this.milage = milage;
     }
 }
