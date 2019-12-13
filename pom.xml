@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>nu.t4</groupId>
-    <artifactId>pendata-Backend</artifactId>
+    <artifactId>opendata-Backend</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
-    <name>pendata-Backend-1.0</name>
+    <name>opendata-Backend-1.0</name>
     
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -27,6 +27,11 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.48</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
         </dependency>
     </dependencies>
     
