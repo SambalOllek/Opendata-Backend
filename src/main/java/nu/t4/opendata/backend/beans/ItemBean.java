@@ -11,15 +11,17 @@ import nu.t4.opendata.backend.entities.Item;
 import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.Singleton;
 
-@Stateless
+@Singleton
 public class ItemBean {
-
     /**
      *
      * @return
      */
     public List<Item> getItems(){
+        
         List<Item> items = new ArrayList();
         try (Connection connection = ConnectionFactory.getConnection()){
             Statement stmt = connection.createStatement();
