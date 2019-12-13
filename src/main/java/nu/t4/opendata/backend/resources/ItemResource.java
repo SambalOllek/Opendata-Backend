@@ -13,12 +13,16 @@ import java.util.List;
  *
  * @author Erik
  */
+@Path("")
 public class ItemResource {
 
     @EJB
     ItemBean itemBean;
 
-
+    /**
+     *
+     * @return
+     */
     @GET
     @Path("items")
     @Produces(MediaType.APPLICATION_JSON)
@@ -30,10 +34,20 @@ public class ItemResource {
         return Response.ok(items).build();
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     public int addItem(Item item){
         return 0;
     }
 
+    /**
+     *
+     * @param itemId
+     * @return
+     */
     public int removeItem(int itemId){
         return  0;
     }

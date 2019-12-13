@@ -1,6 +1,5 @@
 package nu.t4.opendata.backend.beans;
 
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,15 +9,16 @@ import nu.t4.opendata.backend.ConnectionFactory;
 import nu.t4.opendata.backend.entities.Item;
 
 import javax.ejb.Stateless;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
 public class ItemBean {
 
+    /**
+     *
+     * @return
+     */
     public List<Item> getItems(){
         List<Item> items = new ArrayList();
         try (Connection connection = ConnectionFactory.getConnection()){
@@ -48,6 +48,11 @@ public class ItemBean {
         return items;
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     int addItem(Item item){
         try (Connection connection = ConnectionFactory.getConnection()){
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO item VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -69,6 +74,11 @@ public class ItemBean {
         return 0;
     }
 
+    /**
+     *
+     * @param itemId
+     * @return
+     */
     int removeItem(int itemId){
         try (Connection connection = ConnectionFactory.getConnection()){
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM item WHERE id = ?");
