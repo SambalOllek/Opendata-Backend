@@ -1,6 +1,6 @@
 package nu.t4.opendata.backend.beans;
 
-import nu.t4.opendata.backend.entities.Item;
+import nu.t4.opendata.backend.entities.Car;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,7 +26,7 @@ public class WebScraperBean {
         }
     }
 
-    private Item buildItem() {
+    private Car buildCar() {
         return null;
     }
 }

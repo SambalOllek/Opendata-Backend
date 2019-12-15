@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import nu.t4.opendata.backend.ConnectionFactory;
-import nu.t4.opendata.backend.entities.Item;
+import nu.t4.opendata.backend.entities.Car;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
 import java.util.ArrayList;
@@ -15,39 +18,41 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 
 @Singleton
-public class ItemBean {
+public class CarBean {
+    
+    static final Logger logger = LoggerFactory.getLogger(CarBean.class);
+    
     /**
      *
      * @return
      */
-    public List<Item> getItems(){
+    public List<Car> getCars(){
         
-        List<Item> items = new ArrayList();
+        List<Car> cars = new ArrayList();
         try (Connection connection = ConnectionFactory.getConnection()){
             Statement stmt = connection.createStatement();
             String sql = "SELECT * FROM item";
             ResultSet data = stmt.executeQuery(sql);
             while (data.next()) {
-                Item item = new Item();
-                item.setId(data.getInt("id"));
-                item.setAddress(data.getString("address"));
-                item.setBrand(data.getString("brand"));
-                item.setDrivewheel(data.getString("drivewheel"));
-                item.setFuel(data.getString("fuel"));
-                item.setMilage(data.getInt("milage"));
-                item.setPrice(data.getInt("price"));
-                item.setLink(data.getString("link"));
-                item.setRegnum(data.getString("regnum"));
-                item.setModel(data.getString("model"));
-                item.setGearbox(data.getString("gearbox"));
-                item.setYear(data.getInt("year"));
-                items.add(item);
+                Car car = new Car();
+                car.setId(data.getInt("id"));
+                car.setAddress(data.getString("address"));
+                car.setBrand(data.getString("brand"));
+                car.setDrivewheel(data.getString("drivewheel"));
+                car.setFuel(data.getString("fuel"));
+                car.setMilage(data.getInt("milage"));
+                car.setPrice(data.getInt("price"));
+                car.setLink(data.getString("link"));
+                car.setRegnum(data.getString("regnum"));
+                car.setModel(data.getString("model"));
+                car.setGearbox(data.getString("gearbox"));
+                car.setYear(data.getInt("year"));
+                cars.add(car);
             }
         } catch (Exception e) {
-            //TODO: fixa logger
-            System.out.println("Error in ItemBean.getItems: " + e.getMessage());
+            logger.error(e.getMessage());
         }
-        return items;
+        return cars;
     }
 
     /**
@@ -55,19 +60,19 @@ public class ItemBean {
      * @param item
      * @return
      */
-    int addItem(Item item){
+    int addCar(Car car){
         try (Connection connection = ConnectionFactory.getConnection()){
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO item VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            stmt.setString(1, item.getLink());
-            stmt.setString(2, item.getBrand());
-            stmt.setString(3, item.getRegnum());
-            stmt.setString(4, item.getAddress());
-            stmt.setString(5, item.getModel());
-            stmt.setString(6, item.getDrivewheel());
-            stmt.setInt(7, item.getMilage());
-            stmt.setInt(8, item.getPrice());
-            stmt.setString(9, item.getGearbox());
-            stmt.setInt(10, item.getYear());
+            stmt.setString(1, car.getLink());
+            stmt.setString(2, car.getBrand());
+            stmt.setString(3, car.getRegnum());
+            stmt.setString(4, car.getAddress());
+            stmt.setString(5, car.getModel());
+            stmt.setString(6, car.getDrivewheel());
+            stmt.setInt(7, car.getMilage());
+            stmt.setInt(8, car.getPrice());
+            stmt.setString(9, car.getGearbox());
+            stmt.setInt(10, car.getYear());
             return stmt.executeUpdate();
         } catch (Exception e) {
             //TODO: fixa logger
@@ -81,10 +86,10 @@ public class ItemBean {
      * @param itemId
      * @return
      */
-    int removeItem(int itemId){
+    int removeCar(int carId){
         try (Connection connection = ConnectionFactory.getConnection()){
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM item WHERE id = ?");
-            stmt.setInt(1, itemId);
+            stmt.setInt(1, carId);
             return stmt.executeUpdate();
         } catch (Exception e) {
             //TODO: fixa logger

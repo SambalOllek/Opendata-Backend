@@ -3,7 +3,7 @@ package nu.t4.opendata.backend.entities;
 /**
  * @author Erik
  */
-public class Item {
+public class Car {
     private int id;
     private int userId;
     private String username;
@@ -19,7 +19,7 @@ public class Item {
     private int price;
     private int year;
 
-    public Item(int id, int userId, String username, String link, String address, String brand, String model, int milage, String fuel, String gearbox, String drivewheel, String regnum, int price, int year) {
+    public Car(int id, int userId, String username, String link, String address, String brand, String model, int milage, String fuel, String gearbox, String drivewheel, String regnum, int price, int year) {
         this.id = id;
         this.userId = userId;
         this.username = username;
@@ -36,7 +36,7 @@ public class Item {
         this.year = year;
     }
 
-    public Item() {
+    public Car() {
     }
 
     public int getYear() {
