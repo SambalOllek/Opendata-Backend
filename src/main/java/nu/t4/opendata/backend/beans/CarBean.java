@@ -20,7 +20,7 @@ import javax.ejb.Singleton;
 @Singleton
 public class CarBean {
     
-    static final Logger logger = LoggerFactory.getLogger(CarBean.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
     
     /**
      *
@@ -50,7 +50,7 @@ public class CarBean {
                 cars.add(car);
             }
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return cars;
     }
@@ -75,8 +75,7 @@ public class CarBean {
             stmt.setInt(10, car.getYear());
             return stmt.executeUpdate();
         } catch (Exception e) {
-            //TODO: fixa logger
-            System.out.println("Error in ItemBean.addItem: " + e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return 0;
     }
@@ -92,8 +91,7 @@ public class CarBean {
             stmt.setInt(1, carId);
             return stmt.executeUpdate();
         } catch (Exception e) {
-            //TODO: fixa logger
-            System.out.println("Error in ItemBean.removeItem: " + e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return 0;
     }

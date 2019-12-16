@@ -8,10 +8,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
 import javax.ejb.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 public class WebScraperBean {
     private WebDriver webDriver;
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
 
     public void scrape(String url) {
         System.out.println("In WebScraperBean.scrape");
@@ -22,7 +26,7 @@ public class WebScraperBean {
             webDriver.findElement(By.className("gLFyf gsfi")).sendKeys("Teknikum");
             webDriver.findElement(By.className("Tg7LZd")).click();
         } catch (Exception e) {
-            System.out.println("Error in WebScraperBean.scrape: " + e.getMessage());
+            LOGGER.error(e.getMessage());
         }
     }
 
