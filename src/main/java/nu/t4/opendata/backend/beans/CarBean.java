@@ -27,6 +27,8 @@ public class CarBean {
      * @return
      */
     public List<Car> getCars(){
+        WebScraperBean webScraperBean = new WebScraperBean();
+        webScraperBean.scrape2("https://www.bytbil.com");
         
         List<Car> cars = new ArrayList();
         try (Connection connection = ConnectionFactory.getConnection()){
