@@ -41,7 +41,9 @@ public class WebScraperBean {
         String jsonString = "";
 
         try {
+            client.waitForBackgroundJavaScriptStartingBefore(3000);
             HtmlPage page = client.getPage(url);
+            
             System.out.println(page.asXml());
         } catch (IOException e) {
             System.out.println(e.getMessage());

@@ -20,6 +20,9 @@ import javax.ejb.Singleton;
 @Singleton
 public class CarBean {
     
+    @EJB
+    WebScraperBean webScraperBean;
+    
     private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
     
     /**
@@ -27,7 +30,7 @@ public class CarBean {
      * @return
      */
     public List<Car> getCars(){
-        WebScraperBean webScraperBean = new WebScraperBean();
+        webScraperBean = new WebScraperBean();
         webScraperBean.scrape2("https://www.bytbil.com");
         
         List<Car> cars = new ArrayList();
