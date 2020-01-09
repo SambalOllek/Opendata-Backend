@@ -3,20 +3,24 @@ package nu.t4.opendata.backend.beans;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import nu.t4.opendata.backend.entities.Car;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Singleton;
+import javax.ejb.Stateless;
+import nu.t4.opendata.backend.entities.CarBuilder;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Singleton
+@Stateless
 public class WebScraperBean {
-    private WebDriver webDriver;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
+
+    /*private WebDriver webDriver;
     
     private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
 
@@ -32,26 +36,40 @@ public class WebScraperBean {
             LOGGER.error(e.getMessage());
         }
     }
+     */
+    public String scrape2(String url) {
+        List links = new ArrayList();
+        try ( WebClient client = new WebClient()) {
+            client.getOptions().setThrowExceptionOnScriptError(false);
+            client.getOptions().setCssEnabled(false);
+            client.getOptions().setUseInsecureSSL(true);
 
-    public void scrape2 (String url){
-        WebClient client = new WebClient();
-        client.getOptions().setJavaScriptEnabled(true);
-        client.getOptions().setCssEnabled(false);
-        client.getOptions().setUseInsecureSSL(true);
-        String jsonString = "";
+            client.waitForBackgroundJavaScriptStartingBefore(2000);
+            HtmlPage mainPage = client.getPage(url);
+            Document mainDoc = Document.createShell(mainPage.getBaseURI());
+            mainDoc.getElementsByTag("body").append(mainPage.asXml());
+            List<Element> articles = mainDoc.getElementsByClass("result-list-item");
+            System.out.println("---Articles---: " + articles.size());
 
-        try {
-            client.waitForBackgroundJavaScriptStartingBefore(3000);
-            HtmlPage page = client.getPage(url);
-            
-            System.out.println(page.asXml());
+            articles.forEach((element) -> {
+                System.out.println("---LINK---: " + element.getElementsByTag("a").get(0).attr("href"));
+                links.add(element.getElementsByTag("a").get(0).attr("href"));
+            });
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
-    }
-
-    private Car buildCar() {
-        return null;
+        
+        //TODO FIXA SÅ ATT DEN SKRAPRA DATA FRÅN VARJE BIL SIDA
+        String baseUrl = url.substring(0, url.lastIndexOf("/"));
+        links.forEach((link -> {
+            try (WebClient client = new WebClient()){
+                HtmlPage page = client.getPage(baseUrl + link);
+                Document doc = Document.createShell(page.getBaseURI());
+                System.out.println("---PRIS---: " + doc.getElementsByClass("car-price-details").get(0).val());
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage());
+            }
+        }));
+        return "";
     }
 }

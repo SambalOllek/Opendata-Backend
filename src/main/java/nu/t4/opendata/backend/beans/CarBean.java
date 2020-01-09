@@ -17,7 +17,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 
-@Singleton
+@Stateless
 public class CarBean {
     
     @EJB
@@ -31,7 +31,7 @@ public class CarBean {
      */
     public List<Car> getCars(){
         webScraperBean = new WebScraperBean();
-        webScraperBean.scrape2("https://www.bytbil.com");
+        String res = webScraperBean.scrape2("https://www.bytbil.com/bil");
         
         List<Car> cars = new ArrayList();
         try (Connection connection = ConnectionFactory.getConnection()){
