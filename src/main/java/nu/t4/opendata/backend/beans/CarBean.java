@@ -17,8 +17,11 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 
-@Singleton
+@Stateless
 public class CarBean {
+    
+    @EJB
+    WebScraperBean webScraperBean;
     
     private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
     
@@ -27,6 +30,8 @@ public class CarBean {
      * @return
      */
     public List<Car> getCars(){
+        webScraperBean = new WebScraperBean();
+        String res = webScraperBean.scrape2("https://www.bytbil.com/bil");
         
         List<Car> cars = new ArrayList();
         try (Connection connection = ConnectionFactory.getConnection()){
