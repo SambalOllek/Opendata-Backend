@@ -21,14 +21,14 @@ public class CarBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
     
     /**
-     *
-     * @return
+     * Selects all cars from database
+     * @return Returns a list of cars 
      */
     public List<Car> getCars(){
         List<Car> cars = new ArrayList();
         try (Connection connection = ConnectionFactory.getConnection()){
             Statement stmt = connection.createStatement();
-            String sql = "SELECT * FROM item";
+            String sql = "SELECT * FROM car";
             ResultSet data = stmt.executeQuery(sql);
             while (data.next()) {
                 Car car = new Car();
@@ -53,9 +53,9 @@ public class CarBean {
     }
 
     /**
-     *
-     * @param item
-     * @return
+     * Inserts car object to database
+     * @param car Car object to insert
+     * @return Returns 0 if failed to insert and 1 if success
      */
     public int addCar(Car car){
         try (Connection connection = ConnectionFactory.getConnection()){
@@ -79,9 +79,9 @@ public class CarBean {
     }
 
     /**
-     *
-     * @param itemId
-     * @return
+     * Deletes a car object from database
+     * @param carId Id of car to delete
+     * @return Returns 0 if failed to insert and 1 if success
      */
     int removeCar(int carId){
         try (Connection connection = ConnectionFactory.getConnection()){

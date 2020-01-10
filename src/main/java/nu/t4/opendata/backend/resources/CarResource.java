@@ -24,8 +24,8 @@ public class CarResource {
     WebScraperBean webScraperBean;
 
     /**
-     *
-     * @return
+     * Gets list of car object 
+     * @return Returns Status 200 if success and list of cars as JSON. Status 400 if failed to get list of cars
      */
     @GET
     @Path("cars")
@@ -38,6 +38,10 @@ public class CarResource {
         return Response.ok(cars).build();
     }
 
+    /**
+     * Scrape data from site (https://www.bytbil.com/bil)
+     * @return Returns Status 200 if success and list of cars scraped as JSON. Status 400 if failed to scrape data
+     */
     @GET
     @Path("scrape")
     @Produces(MediaType.APPLICATION_JSON)

@@ -1,9 +1,6 @@
 package nu.t4.opendata.backend.entities;
 
-/**
- *
- * @author Erik
- */
+
 public class Credentials {
     private String username;
     private String password;

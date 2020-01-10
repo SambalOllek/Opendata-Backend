@@ -21,6 +21,10 @@ public class CarBuilder {
     private int mPrice;
     private int mYear;
 
+    /**
+     * Builds a Car object from values set. If link or address is not set IllegalStateException will be thrown
+     * @return Returns a Car object
+     */
     public Car build() {
         if (link() == null) {
             throw new IllegalStateException("Car must have a link to destination site");
