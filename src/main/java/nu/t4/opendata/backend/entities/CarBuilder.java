@@ -67,60 +67,78 @@ public class CarBuilder {
         return new Car(this);
     }
 
-    public void id(int mId) {
+    public CarBuilder() {
+    }
+
+    
+    public CarBuilder id(int mId) {
         this.mId = mId;
+        return this;
     }
 
-    public void userId(int mUserId) {
+    public CarBuilder userId(int mUserId) {
         this.mUserId = mUserId;
+        return this;
     }
 
-    public void username(String mUsername) {
+    public CarBuilder username(String mUsername) {
         this.mUsername = mUsername;
+        return this;
     }
 
-    public void link(String mLink) {
+    public CarBuilder link(String mLink) {
         this.mLink = mLink;
+        return this;
     }
 
-    public void address(String mAddress) {
+    public CarBuilder address(String mAddress) {
         this.mAddress = mAddress;
+        return this;
     }
 
-    public void brand(String mBrand) {
+    public CarBuilder brand(String mBrand) {
         this.mBrand = mBrand;
+        return this;
     }
 
-    public void model(String mModel) {
+    public CarBuilder model(String mModel) {
         this.mModel = mModel;
+        return this;
     }
 
-    public void milage(int mMilage) {
+    public CarBuilder milage(int mMilage) {
         this.mMilage = mMilage;
+        return this;
     }
 
-    public void fuel(String mFuel) {
+    public CarBuilder fuel(String mFuel) {
         this.mFuel = mFuel;
+        return this;
     }
 
-    public void gearbox(String mGearbox) {
+    public CarBuilder gearbox(String mGearbox) {
         this.mGearbox = mGearbox;
+        return this;
     }
 
-    public void drivewheel(String mDrivewheel) {
+    public CarBuilder drivewheel(String mDrivewheel) {
         this.mDrivewheel = mDrivewheel;
+        return this;
     }
 
-    public void regnum(String mRegnum) {
+    public CarBuilder regnum(String mRegnum) {
         this.mRegnum = mRegnum;
+        return this;
     }
 
-    public void price(int mPrice) {
+    public CarBuilder price(int mPrice) {
         this.mPrice = mPrice;
+        return this;
     }
 
-    public void year(int mYear) {
+    public CarBuilder year(int mYear) {
         this.mYear = mYear;
+        return this;
     }
 
     public int id() {

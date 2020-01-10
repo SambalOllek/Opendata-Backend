@@ -53,7 +53,7 @@ public class WebScraperBean {
                 client.getOptions().setCssEnabled(false);
                 HtmlPage page = client.getPage(baseUrl + link);
                 client.waitForBackgroundJavaScriptStartingBefore(200);
-                client.waitForBackgroundJavaScript(200);
+                client.waitForBackgroundJavaScript(1000);
                 Document doc = Document.createShell(page.getBaseURI());
                 doc.getElementsByTag("body").append(page.asXml());
 
