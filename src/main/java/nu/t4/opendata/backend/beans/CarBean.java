@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.EJB;
-import javax.ejb.Singleton;
 
 @Singleton
 public class CarBean {
@@ -27,7 +25,10 @@ public class CarBean {
      * @return
      */
     public List<Car> getCars(){
+<<<<<<< Updated upstream
         
+=======
+>>>>>>> Stashed changes
         List<Car> cars = new ArrayList();
         try (Connection connection = ConnectionFactory.getConnection()){
             Statement stmt = connection.createStatement();
@@ -60,9 +61,9 @@ public class CarBean {
      * @param item
      * @return
      */
-    int addCar(Car car){
+    public int addCar(Car car){
         try (Connection connection = ConnectionFactory.getConnection()){
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO item VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO item VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, car.getLink());
             stmt.setString(2, car.getBrand());
             stmt.setString(3, car.getRegnum());
@@ -73,6 +74,7 @@ public class CarBean {
             stmt.setInt(8, car.getPrice());
             stmt.setString(9, car.getGearbox());
             stmt.setInt(10, car.getYear());
+            stmt.setString(11, car.getFuel());
             return stmt.executeUpdate();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
