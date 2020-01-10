@@ -38,6 +38,23 @@ public class Car {
 
     public Car() {
     }
+    
+    public Car(CarBuilder build){
+        this.id = build.id();
+        this.userId = build.userId();
+        this.username = build.username();
+        this.link = build.link();
+        this.address = build.address();
+        this.brand = build.brand();
+        this.model = build.model();
+        this.milage = build.milage();
+        this.fuel = build.fuel();
+        this.gearbox = build.gearbox();
+        this.drivewheel = build.drivewheel();
+        this.regnum = build.regnum();
+        this.price = build.price();
+        this.year = build.year();
+    }
 
     public int getYear() {
         return year;

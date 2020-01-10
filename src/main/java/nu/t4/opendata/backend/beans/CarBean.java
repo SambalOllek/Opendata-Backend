@@ -15,7 +15,7 @@ import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
 
-@Singleton
+@Stateless
 public class CarBean {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
@@ -25,10 +25,6 @@ public class CarBean {
      * @return
      */
     public List<Car> getCars(){
-<<<<<<< Updated upstream
-        
-=======
->>>>>>> Stashed changes
         List<Car> cars = new ArrayList();
         try (Connection connection = ConnectionFactory.getConnection()){
             Statement stmt = connection.createStatement();
