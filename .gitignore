@@ -11,3 +11,6 @@ buildNumber.properties
 .idea
 .mvn/wrapper/maven-wrapper.jar
 *.iml
+src/main/java/nu/t4/opendata/backend/beans/WebScraperBean.java
+src/main/java/nu/t4/opendata/backend/beans/CarBean.java
+src/main/java/nu/t4/opendata/backend/entities/CarBuilder.java

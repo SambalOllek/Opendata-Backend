@@ -150,4 +150,9 @@ public class Car {
     public void setMilage(int milage) {
         this.milage = milage;
     }
+
+    @Override
+    public String toString() {
+        return "Car{" + "id=" + id + ", userId=" + userId + ", username=" + username + ", link=" + link + ", address=" + address + ", brand=" + brand + ", model=" + model + ", milage=" + milage + ", fuel=" + fuel + ", gearbox=" + gearbox + ", drivewheel=" + drivewheel + ", regnum=" + regnum + ", price=" + price + ", year=" + year + '}';
+    }
 }
