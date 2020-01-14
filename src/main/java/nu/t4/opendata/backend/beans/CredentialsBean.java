@@ -15,18 +15,22 @@ import org.slf4j.LoggerFactory;
 
 @Stateless
 public class CredentialsBean {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
-    
 
     public Credentials createCredentials(String basicAuth) {
-        basicAuth = basicAuth.substring(6).trim();//Removes "Basic " from string
-        byte[] bytes = Base64.getDecoder().decode(basicAuth);
-        basicAuth = new String(bytes);
-        int colon = basicAuth.indexOf(":");
-        String username = basicAuth.substring(0, colon);
-        String password = basicAuth.substring(colon + 1);
-        return new Credentials(username, password);
+        try {
+            basicAuth = basicAuth.substring(6).trim();//Removes "Basic " from string
+            byte[] bytes = Base64.getDecoder().decode(basicAuth);
+            basicAuth = new String(bytes);
+            int colon = basicAuth.indexOf(":");
+            String username = basicAuth.substring(0, colon);
+            String password = basicAuth.substring(colon + 1);
+            return new Credentials(username, password);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+        return null;
     }
 
     private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
@@ -37,23 +41,23 @@ public class CredentialsBean {
         secureRandom.nextBytes(randomBytes);
         return base64Encoder.encodeToString(randomBytes);
     }
-    
-    public boolean verifyToken(String token){;
-        try (Connection connection = ConnectionFactory.getConnection()){
+
+    public boolean verifyToken(String token) {;
+        try ( Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM user WHERE token = ?");
             stmt.setString(1, token);
             ResultSet data = stmt.executeQuery();
-            if(data.next()){
+            if (data.next()) {
                 return true;
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
         return false;
     }
-    
-    private int addToken(Credentials credentials, String token){
-        try (Connection connection = ConnectionFactory.getConnection()){
+
+    private int addToken(Credentials credentials, String token) {
+        try ( Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement("UPDATE user SET token = ? WHERE username = ?");
             stmt.setString(1, token);
             stmt.setString(2, credentials.getUsername());
@@ -66,22 +70,23 @@ public class CredentialsBean {
 
     public String checkCredentials(Credentials credentials) {
         String token = "";
-        String hashedPassword = "";
         try ( Connection connection = ConnectionFactory.getConnection()) {
+            String hashedPassword = "";
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM user WHERE username = ?");
             stmt.setString(1, credentials.getUsername());
             ResultSet data = stmt.executeQuery();
             if (data.next()) {
                 hashedPassword = data.getString("hash");
             }
+            if (BCrypt.verifyer().verify(credentials.getPassword().toCharArray(), hashedPassword).verified) {
+                token = generateNewToken();
+                addToken(credentials, token);
+            }
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
-        if(BCrypt.verifyer().verify(credentials.getPassword().toCharArray(), hashedPassword).verified){
-            token = generateNewToken();
-            addToken(credentials, token);
-        }
         return token;
+
     }
 
     public int saveCredentials(Credentials credentials) {
