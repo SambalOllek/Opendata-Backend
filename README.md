@@ -1,4 +1,9 @@
-# Opendata-Backend
+# Opendata Projekt - Backend
+This is the first part of the ReadMe for the project, after you are done with this part, go to the frontend version of the project and read through that to make sure everything is in order.
+___
+
+##1 | Getting Started
+
 
 Download declared dependencies when first running this project
 
