@@ -1,4 +1,5 @@
-# Opendata-Backend
+# Opendata Projekt - Backend
+This is the first part of the ReadMe for the project, after you are done with this part, go to the frontend version of the project and read through that to make sure everything is in order.
 
 ##Getting Started
 1. You need to set up a server to run this application on.
@@ -17,3 +18,5 @@ This is needed to populate the database with car items from https://bytbil.com.
  - POST
  
  - DELETE
+    - http://localhost:8080/api/user_item/`[userId]`
+    Removes a item from a users list
