@@ -8,4 +8,9 @@
             30
         </session-timeout>
     </session-config>
+    <listener>
+	<listener-class>
+             nu.t4.opendata.backend.OpendataContextListener
+        </listener-class>
+   </listener>
 </web-app>
