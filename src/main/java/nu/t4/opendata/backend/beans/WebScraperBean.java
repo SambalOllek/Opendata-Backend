@@ -30,6 +30,7 @@ public class WebScraperBean {
      * @return Returns list of cars scraped from site.
      */
     public List<Car> scrape(String url) {
+        LOGGER.info("Webscraping has begun!");
         List<Car> cars = new ArrayList();
         List<String> links = new ArrayList();
         try (final WebClient client = new WebClient(BrowserVersion.FIREFOX_60)) {
@@ -65,6 +66,7 @@ public class WebScraperBean {
      */
     private Car scrapeCarInfo(String link) {
         try (final WebClient client = new WebClient(BrowserVersion.FIREFOX_60)) {
+            LOGGER.info("Begun scraping from car articles!");
             client.getOptions().setUseInsecureSSL(true);
             client.getOptions().setThrowExceptionOnScriptError(false);
             client.getOptions().setCssEnabled(false);

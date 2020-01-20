@@ -1,15 +1,17 @@
 package nu.t4.opendata.backend.beans;
 
 
+import com.mysql.jdbc.Connection;
 import javax.ejb.Stateless;
 import javax.json.JsonObject;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import nu.t4.opendata.backend.ConnectionFactory;
 
 @Stateless
-public class Oauth {
+public class OauthBean {
     
     
     private final String CLIENT_ID = "0b4be5c42fd4aad65f85"; 
@@ -26,6 +28,12 @@ public class Oauth {
     public JsonObject githubOauth(String token){
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target("https://api.github.com/user?access_token="+token);
-        return target.request(MediaType.APPLICATION_JSON).get(JsonObject.class);
+        JsonObject data = target.request(MediaType.APPLICATION_JSON).get(JsonObject.class);
+        try (Connection connection = ConnectionFactory.getConnection()){
+            //TODO spara username och oauth id från github i databas
+        } catch (Exception e) {
+            
+        }
+        return data;
     }
 }
