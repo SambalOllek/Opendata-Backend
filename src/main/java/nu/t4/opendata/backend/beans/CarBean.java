@@ -59,7 +59,7 @@ public class CarBean {
      */
     public int addCar(Car car){
         try (Connection connection = ConnectionFactory.getConnection()){
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO item VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO car VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, car.getLink());
             stmt.setString(2, car.getBrand());
             stmt.setString(3, car.getRegnum());
@@ -85,7 +85,7 @@ public class CarBean {
      */
     int removeCar(int carId){
         try (Connection connection = ConnectionFactory.getConnection()){
-            PreparedStatement stmt = connection.prepareStatement("DELETE FROM item WHERE id = ?");
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM car WHERE id = ?");
             stmt.setInt(1, carId);
             return stmt.executeUpdate();
         } catch (Exception e) {

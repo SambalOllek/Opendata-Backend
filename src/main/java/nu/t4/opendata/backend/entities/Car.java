@@ -5,8 +5,6 @@ package nu.t4.opendata.backend.entities;
  */
 public class Car {
     private int id;
-    private int userId;
-    private String username;
     private String link;
     private String address;
     private String brand;
@@ -19,10 +17,8 @@ public class Car {
     private int price;
     private int year;
 
-    public Car(int id, int userId, String username, String link, String address, String brand, String model, int milage, String fuel, String gearbox, String drivewheel, String regnum, int price, int year) {
+    public Car(int id, String link, String address, String brand, String model, int milage, String fuel, String gearbox, String drivewheel, String regnum, int price, int year) {
         this.id = id;
-        this.userId = userId;
-        this.username = username;
         this.link = link;
         this.address = address;
         this.brand = brand;
@@ -41,8 +37,6 @@ public class Car {
     
     public Car(CarBuilder build){
         this.id = build.id();
-        this.userId = build.userId();
-        this.username = build.username();
         this.link = build.link();
         this.address = build.address();
         this.brand = build.brand();
@@ -144,22 +138,6 @@ public class Car {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public int getMilage() {
         return milage;
     }
@@ -170,6 +148,6 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" + "id=" + id + ", userId=" + userId + ", username=" + username + ", link=" + link + ", address=" + address + ", brand=" + brand + ", model=" + model + ", milage=" + milage + ", fuel=" + fuel + ", gearbox=" + gearbox + ", drivewheel=" + drivewheel + ", regnum=" + regnum + ", price=" + price + ", year=" + year + '}';
+        return "Car{" + "id=" + id + ", link=" + link + ", address=" + address + ", brand=" + brand + ", model=" + model + ", milage=" + milage + ", fuel=" + fuel + ", gearbox=" + gearbox + ", drivewheel=" + drivewheel + ", regnum=" + regnum + ", price=" + price + ", year=" + year + '}';
     }
 }

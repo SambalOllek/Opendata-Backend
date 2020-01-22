@@ -10,17 +10,17 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class UserCarBean {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserCarBean.class);
     
-    public List<Car> getUserCars(int userId) {
+    public List<Car> getUserCars(String token) {
         return null;
     }
 
-    public Car addUserCar(Car car) {
+    public Car addUserCar(Car car, String token) {
         return null;
     }
 
-    public int deleteUserCar() {
+    public int deleteUserCar(String token) {
         return 0;
     }
 }
