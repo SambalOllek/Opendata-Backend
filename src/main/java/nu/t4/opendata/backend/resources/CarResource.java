@@ -33,7 +33,7 @@ public class CarResource {
     public Response getItems() {
         List<Car> cars = carBean.getCars();
         if (cars.isEmpty()) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.NO_CONTENT).build();
         }
         return Response.ok(cars).build();
     }
