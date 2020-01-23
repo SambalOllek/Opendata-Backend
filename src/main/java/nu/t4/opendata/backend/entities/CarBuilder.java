@@ -7,8 +7,6 @@ package nu.t4.opendata.backend.entities;
 public class CarBuilder {
 
     private int mId;
-    private int mUserId;
-    private String mUsername;
     private String mLink;
     private String mAddress;
     private String mBrand;
@@ -34,12 +32,6 @@ public class CarBuilder {
         }
         if (id() < 0) {
             id(0);
-        }
-        if (userId() < 0) {
-            userId(0);
-        }
-        if (username() == null) {
-            username("");
         }
         if (brand() == null) {
             brand("");
@@ -77,16 +69,6 @@ public class CarBuilder {
     
     public CarBuilder id(int mId) {
         this.mId = mId;
-        return this;
-    }
-
-    public CarBuilder userId(int mUserId) {
-        this.mUserId = mUserId;
-        return this;
-    }
-
-    public CarBuilder username(String mUsername) {
-        this.mUsername = mUsername;
         return this;
     }
 
@@ -148,15 +130,7 @@ public class CarBuilder {
     public int id() {
         return mId;
     }
-
-    public int userId() {
-        return mUserId;
-    }
-
-    public String username() {
-        return mUsername;
-    }
-
+    
     public String link() {
         return mLink;
     }

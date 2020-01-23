@@ -85,7 +85,7 @@ public class CarBean {
      */
     int removeCar(int carId){
         try (Connection connection = ConnectionFactory.getConnection()){
-            PreparedStatement stmt = connection.prepareStatement("DELETE FROM item WHERE id = ?");
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM car WHERE id = ?");
             stmt.setInt(1, carId);
             return stmt.executeUpdate();
         } catch (Exception e) {

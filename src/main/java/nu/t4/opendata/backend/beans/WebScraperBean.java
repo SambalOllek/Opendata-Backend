@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.swing.text.html.HTML;
 import nu.t4.opendata.backend.entities.CarBuilder;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,7 +23,7 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class WebScraperBean {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebScraperBean.class);
 
     /**
      * Scrape data of cars from a site currently only supports https://bytbil.com/bil
@@ -30,6 +31,8 @@ public class WebScraperBean {
      * @return Returns list of cars scraped from site.
      */
     public List<Car> scrape(String url) {
+        String baseUrl = "https://bytbil.com";
+        LOGGER.info("Webscraping has begun!");
         List<Car> cars = new ArrayList();
         List<String> links = new ArrayList();
         try (final WebClient client = new WebClient(BrowserVersion.FIREFOX_60)) {
@@ -37,8 +40,7 @@ public class WebScraperBean {
             client.getOptions().setThrowExceptionOnScriptError(false);
             client.getOptions().setCssEnabled(false);
             HtmlPage mainPage = client.getPage(url);
-
-            client.waitForBackgroundJavaScriptStartingBefore(2000);
+            
             Document mainDoc = Document.createShell(mainPage.getBaseURI());
             mainDoc.getElementsByTag("body").append(mainPage.asXml());
             List<Element> articles = mainDoc.getElementsByClass("result-list-item");
@@ -49,8 +51,6 @@ public class WebScraperBean {
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
-
-        String baseUrl = url.substring(0, url.lastIndexOf("/"));
         links.forEach((link -> {
             cars.add(scrapeCarInfo(baseUrl + link));
         }));
@@ -65,27 +65,31 @@ public class WebScraperBean {
      */
     private Car scrapeCarInfo(String link) {
         try (final WebClient client = new WebClient(BrowserVersion.FIREFOX_60)) {
+            LOGGER.info("Begun scraping from car articles!");
             client.getOptions().setUseInsecureSSL(true);
             client.getOptions().setThrowExceptionOnScriptError(false);
             client.getOptions().setCssEnabled(false);
             HtmlPage page = client.getPage(link);
-            client.waitForBackgroundJavaScriptStartingBefore(200);
-            client.waitForBackgroundJavaScript(500);
+            
             Document doc = Document.createShell(page.getBaseURI());
             doc.getElementsByTag("body").append(page.asXml());
-
+            
+            String priceTag = doc.getElementsByClass("car-price-details").get(0).text().replace(" ", "");
+            int price = Integer.parseInt(priceTag.substring(0, priceTag.indexOf("k")));
+            
             CarBuilder carBuilder = new CarBuilder();
             carBuilder
                     .address(doc.getElementsByClass("uk-width-1-1 vehicle-detail-section-dealer-address").get(0).text())
                     .brand(doc.getElementsByTag("dd").get(0).text())
                     .model(doc.getElementsByTag("dd").get(1).text())
-                    .year(Integer.parseInt(doc.getElementsByTag("dd").get(2).text()))
-                    .milage(Integer.parseInt(doc.getElementsByTag("dd").get(3).text()))
+                    .year(Integer.parseInt(doc.getElementsByTag("dd").get(2).text().replace(" ", "")))
+                    .milage(Integer.parseInt(doc.getElementsByTag("dd").get(3).text().replace(" ", "")))
                     .fuel(doc.getElementsByTag("dd").get(4).text())
                     .gearbox(doc.getElementsByTag("dd").get(5).text())
                     .drivewheel(doc.getElementsByTag("dd").get(6).text())
                     .regnum(doc.getElementsByTag("dd").get(7).text())
                     .link(link)
+                    .price(price)
                     .build();
             return new Car(carBuilder);
         } catch (Exception e) {

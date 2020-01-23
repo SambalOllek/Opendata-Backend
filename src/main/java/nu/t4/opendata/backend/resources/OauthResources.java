@@ -7,19 +7,19 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import nu.t4.opendata.backend.beans.Oauth;
+import nu.t4.opendata.backend.beans.OauthBean;
 
 @Path("")
-public class OauthResources1 {
+public class OauthResources {
     
    @EJB
-    Oauth oAuth;
+    OauthBean oauthBean;
     
     @GET
     @Path("token")
     @Produces(MediaType.TEXT_PLAIN)
     public Response getToken(@QueryParam("code") String code){
-        return Response.ok(oAuth.getToken(code)).build();
+        return Response.ok(oauthBean.getToken(code)).build();
     }
     
     
@@ -27,7 +27,7 @@ public class OauthResources1 {
     @Path("login")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEvents(@QueryParam("token") String token){
-        return Response.ok(oAuth.githubOauth(token)).build();
+        return Response.ok(oauthBean.githubOauth(token)).build();
     }
     
     

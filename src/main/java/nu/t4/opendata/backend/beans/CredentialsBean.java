@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class CredentialsBean {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CredentialsBean.class);
 
     public Credentials createCredentials(String basicAuth) {
         try {
