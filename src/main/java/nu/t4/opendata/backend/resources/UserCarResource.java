@@ -7,7 +7,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
+import nu.t4.opendata.backend.beans.UserCars;
 
 /**
  * 
@@ -30,7 +30,7 @@ public class UserCarResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postUserCars(Car car, @HeaderParam("authorization") String token){
-        if(userCarBean.addUserCar(car, token).getId() == 0){
+        if(userCarBean.addUserCar(car, token) == 0){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok(car).build();
@@ -45,11 +45,11 @@ public class UserCarResource {
     @Path("userCars")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserCars(@HeaderParam("authorization") String token){
-        List<Car> cars = userCarBean.getUserCars(token);
-        if(cars.isEmpty()){
+        UserCars usercars = userCarBean.getUserCars(token);
+        if(usercars.getCars().isEmpty()){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        return Response.ok(cars).build();
+        return Response.ok(usercars).build();
     }
 
     /**
