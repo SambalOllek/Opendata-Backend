@@ -54,51 +54,53 @@ public class UserCarBean {
 
     public int addUserCar(Car car, String token) {
         int userId = 0;
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        try ( Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement("SELECT id FROM user WHERE token = ?");
             stmt.setString(1, token);
             ResultSet data = stmt.executeQuery();
-            if(data.next()){
+            if (data.next()) {
                 userId = data.getInt("id");
             }
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
-            //hämta userid från user, där token = token
-        try ( Connection connection = ConnectionFactory.getConnection()) {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO user_car VALUES(?,?");
-            stmt.setInt(1,userId); //mata in userid istället för token
-            stmt.setInt(2, car.getId());
-            return stmt.executeUpdate();
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+        
+        if (userId != 0) {
+            try ( Connection connection = ConnectionFactory.getConnection()) {
+                PreparedStatement stmt = connection.prepareStatement("INSERT INTO user_car VALUES(?, ?");
+                stmt.setInt(1, userId);
+                stmt.setInt(2, car.getId());
+                return stmt.executeUpdate();
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage());
+            }
         }
         return 0;
     }
 
     public int deleteUserCar(String token, int carId) {
         int userId = 0;
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        try ( Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement("SELECT id FROM user WHERE token = ?");
             stmt.setString(1, token);
             ResultSet data = stmt.executeQuery();
-            if(data.next()){
+            if (data.next()) {
                 userId = data.getInt("id");
             }
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
-        try (Connection connection = ConnectionFactory.getConnection()) {
+        try ( Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM usercar WHERE userid = ? && carid = ?");
-            stmt.setInt(2,carId);
-            stmt.setInt(1,userId);
+            stmt.setInt(2, carId);
+            stmt.setInt(1, userId);
             ResultSet data = stmt.executeQuery();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             return 1;
         }
-        
+
         return 0;
-        
+
     }
 }

@@ -55,12 +55,13 @@ public class UserCarResource {
     /**
      * Calls userCarBean.deleteUserCar and removes one item from users item list
      * @param token Token of user making the request
+     * @param carId ID of car to delete
      * @return Returns Status 200 OK if success or Status 400 BAD REQUEST if failed to remove
      */
     @DELETE
-    @Path("userCars")
-    public Response deleteUserCars(@HeaderParam("authorization") String token){
-        if(userCarBean.deleteUserCar(token) == 0){
+    @Path("userCars/{carId}")
+    public Response deleteUserCars(@HeaderParam("authorization") String token, @PathParam("carId") int carId){
+        if(userCarBean.deleteUserCar(token, carId) == 0){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok().build();

@@ -23,7 +23,7 @@ public class cronWebScrapeJob implements Job{
     @Override
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
         try {
-            WebScraperBean.scrape("https://www.bytbil.com/bil"); 
+            WebScraperBean.scrape(); 
             LOGGER.info("Jobs done!");
         } catch (Exception e) {
             LOGGER.error(e.getMessage());

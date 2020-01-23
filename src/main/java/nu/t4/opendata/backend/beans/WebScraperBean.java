@@ -8,8 +8,8 @@ import nu.t4.opendata.backend.entities.Car;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.swing.text.html.HTML;
 import nu.t4.opendata.backend.entities.CarBuilder;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,14 +23,30 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class WebScraperBean {
 
+    @EJB CarBean carBean;
     private static final Logger LOGGER = LoggerFactory.getLogger(WebScraperBean.class);
 
+    /**
+     * Scrape data of cars from a site currently only supports https://bytbil.com/bil
+     * @return Returns int of number of cars added to db
+     */
+    public int scrape(){
+        List<Car> cars = scrapeLinks("https://bytbil.com/bil");
+        int carsAdded = 0;
+        for(Car car: cars){
+           if(carBean.addCar(car) != 0){
+               carsAdded++;
+           }
+        }
+        return carsAdded;
+    }
+    
     /**
      * Scrape data of cars from a site currently only supports https://bytbil.com/bil
      * @param url The URL of said site to scrape data from
      * @return Returns list of cars scraped from site.
      */
-    public List<Car> scrape(String url) {
+    private List<Car> scrapeLinks(String url) {
         String baseUrl = "https://bytbil.com";
         LOGGER.info("Webscraping has begun!");
         List<Car> cars = new ArrayList();
@@ -40,7 +56,7 @@ public class WebScraperBean {
             client.getOptions().setThrowExceptionOnScriptError(false);
             client.getOptions().setCssEnabled(false);
             HtmlPage mainPage = client.getPage(url);
-            
+            client.waitForBackgroundJavaScript(1000);
             Document mainDoc = Document.createShell(mainPage.getBaseURI());
             mainDoc.getElementsByTag("body").append(mainPage.asXml());
             List<Element> articles = mainDoc.getElementsByClass("result-list-item");
@@ -70,7 +86,7 @@ public class WebScraperBean {
             client.getOptions().setThrowExceptionOnScriptError(false);
             client.getOptions().setCssEnabled(false);
             HtmlPage page = client.getPage(link);
-            
+            client.waitForBackgroundJavaScript(1000);
             Document doc = Document.createShell(page.getBaseURI());
             doc.getElementsByTag("body").append(page.asXml());
             

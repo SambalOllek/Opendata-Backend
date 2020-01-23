@@ -46,13 +46,9 @@ public class CarResource {
     @Path("scrape")
     @Produces(MediaType.APPLICATION_JSON)
     public Response scrape() {
-        List<Car> cars = webScraperBean.scrape("https://www.bytbil.com/bil");
-        cars.forEach((car) -> {
-           carBean.addCar(car);
-        });
-        if(cars.isEmpty()){
+        if(webScraperBean.scrape() == 0){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        return Response.ok(cars).build();
+        return Response.ok().build();
     }
 }
