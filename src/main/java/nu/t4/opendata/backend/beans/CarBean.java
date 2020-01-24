@@ -15,18 +15,23 @@ import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Erik
+ */
 @Stateless
 public class CarBean {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
-    
+
     /**
      * Selects all cars from database
-     * @return Returns a list of cars 
+     *
+     * @return Returns a list of cars
      */
-    public List<Car> getCars(){
+    public List<Car> getCars() {
         List<Car> cars = new ArrayList();
-        try (Connection connection = ConnectionFactory.getConnection()){
+        try ( Connection connection = ConnectionFactory.getConnection()) {
             Statement stmt = connection.createStatement();
             String sql = "SELECT * FROM car";
             ResultSet data = stmt.executeQuery(sql);
@@ -54,11 +59,12 @@ public class CarBean {
 
     /**
      * Inserts car object to database
+     *
      * @param car Car object to insert
      * @return Returns 0 if failed to insert and 1 if success
      */
-    public int addCar(Car car){
-        try (Connection connection = ConnectionFactory.getConnection()){
+    public int addCar(Car car) {
+        try ( Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO car VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, car.getLink());
             stmt.setString(2, car.getBrand());
@@ -80,11 +86,12 @@ public class CarBean {
 
     /**
      * Deletes a car object from database
+     *
      * @param carId Id of car to delete
      * @return Returns 0 if failed to insert and 1 if success
      */
-    int removeCar(int carId){
-        try (Connection connection = ConnectionFactory.getConnection()){
+    int removeCar(int carId) {
+        try ( Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM car WHERE id = ?");
             stmt.setInt(1, carId);
             return stmt.executeUpdate();
@@ -93,6 +100,5 @@ public class CarBean {
         }
         return 0;
     }
-
 
 }

@@ -17,32 +17,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author Erik
  */
 @Stateless
 public class WebScraperBean {
 
-    @EJB CarBean carBean;
+    @EJB
+    CarBean carBean;
     private static final Logger LOGGER = LoggerFactory.getLogger(WebScraperBean.class);
 
     /**
-     * Scrape data of cars from a site currently only supports https://bytbil.com/bil
+     * Scrape data of cars from a site currently only supports
+     * https://bytbil.com/bil
+     *
      * @return Returns int of number of cars added to db
      */
-    public int scrape(){
+    public int scrape() {
         List<Car> cars = scrapeLinks("https://bytbil.com/bil");
         int carsAdded = 0;
-        for(Car car: cars){
-           if(carBean.addCar(car) != 0){
-               carsAdded++;
-           }
+        for (Car car : cars) {
+            if (carBean.addCar(car) != 0) {
+                carsAdded++;
+            }
         }
         return carsAdded;
     }
-    
+
     /**
-     * Scrape data of cars from a site currently only supports https://bytbil.com/bil
+     * Scrape data of cars from a site currently only supports
+     * https://bytbil.com/bil
+     *
      * @param url The URL of said site to scrape data from
      * @return Returns list of cars scraped from site.
      */
@@ -74,8 +79,9 @@ public class WebScraperBean {
     }
 
     /**
-     * Only called from scrape function
-     * Scrape info from link and builds a car object from said info
+     * Only called from scrape function Scrape info from link and builds a car
+     * object from said info
+     *
      * @param link Link to page with cars info/data
      * @return Returns a Car object
      */
@@ -89,10 +95,10 @@ public class WebScraperBean {
             client.waitForBackgroundJavaScript(1000);
             Document doc = Document.createShell(page.getBaseURI());
             doc.getElementsByTag("body").append(page.asXml());
-            
+
             String priceTag = doc.getElementsByClass("car-price-details").get(0).text().replace(" ", "");
             int price = Integer.parseInt(priceTag.substring(0, priceTag.indexOf("k")));
-            
+
             CarBuilder carBuilder = new CarBuilder();
             carBuilder
                     .address(doc.getElementsByClass("uk-width-1-1 vehicle-detail-section-dealer-address").get(0).text())

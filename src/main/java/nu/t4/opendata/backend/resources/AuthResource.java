@@ -4,14 +4,12 @@ import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import nu.t4.opendata.backend.beans.CredentialsBean;
 import nu.t4.opendata.backend.entities.Credentials;
 
 /**
- * 
+ *
  * @author Erik
  */
 @Path("auth")
@@ -35,24 +33,25 @@ public class AuthResource {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
+
     /**
-     * 
+     *
      * @param token
-     * @return 
+     * @return
      */
     @Path("/token")
     @GET
     public Response verifyUser(@HeaderParam("authorization") String token) {
-        if(credentialsBean.verifyToken(token)){
+        if (credentialsBean.verifyToken(token)) {
             return Response.status(Response.Status.OK).build();
         }
         return Response.status(Response.Status.UNAUTHORIZED).build();
     }
-    
+
     /**
-     * 
+     *
      * @param basicAuth
-     * @return 
+     * @return
      */
     @Path("/create")
     @GET
@@ -64,6 +63,5 @@ public class AuthResource {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
-    
 
 }

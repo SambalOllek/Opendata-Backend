@@ -20,7 +20,9 @@ public class CarBuilder {
     private int mYear;
 
     /**
-     * Builds a Car object from values set. If link or address is not set IllegalStateException will be thrown
+     * Builds a Car object from values set. If link or address is not set
+     * IllegalStateException will be thrown
+     *
      * @return Returns a Car object
      */
     public Car build() {
@@ -66,7 +68,6 @@ public class CarBuilder {
     public CarBuilder() {
     }
 
-    
     public CarBuilder id(int mId) {
         this.mId = mId;
         return this;
@@ -130,7 +131,7 @@ public class CarBuilder {
     public int id() {
         return mId;
     }
-    
+
     public String link() {
         return mLink;
     }
