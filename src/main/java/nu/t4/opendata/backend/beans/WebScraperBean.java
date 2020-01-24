@@ -41,6 +41,7 @@ public class WebScraperBean {
                 carsAdded++;
             }
         }
+        System.out.println("Scraping Done!");
         return carsAdded;
     }
 

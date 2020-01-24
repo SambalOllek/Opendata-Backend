@@ -31,7 +31,7 @@ public class OpendataContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent arg0) {
         JobDetail cronJob = JobBuilder.newJob(cronWebScrapeJob.class).build();
         Trigger cronTrigger = TriggerBuilder.newTrigger().withIdentity("CronTrigger")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 0/30 * 1/1 * ? *"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 * 1/1 * ? *"))
                 .build();
         try {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
