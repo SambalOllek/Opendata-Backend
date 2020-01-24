@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 17 jan 2020 kl 13:13
+-- Tid vid skapande: 24 jan 2020 kl 10:12
 -- Serverversion: 10.4.6-MariaDB
 -- PHP-version: 7.3.9
 
@@ -33,11 +33,11 @@ USE `opendata_db`;
 CREATE TABLE `car` (
   `id` int(11) NOT NULL COMMENT 'Item id (PRIMARY)',
   `link` varchar(256) NOT NULL COMMENT 'Link to bytbil.com article. ex: bytbil.com/[LINK]',
-  `brand` varchar(32) NOT NULL COMMENT 'Bilens märke',
+  `brand` varchar(64) NOT NULL COMMENT 'Bilens märke',
   `regnum` varchar(16) NOT NULL COMMENT 'Regnummret till bilen',
-  `address` varchar(128) NOT NULL COMMENT 'Address till vart bilen finns',
-  `model` varchar(32) NOT NULL COMMENT 'Bilens modell',
-  `drivewheel` varchar(16) NOT NULL COMMENT '2wd / 4wd',
+  `address` varchar(256) NOT NULL COMMENT 'Address till vart bilen finns',
+  `model` varchar(64) NOT NULL COMMENT 'Bilens modell',
+  `drivewheel` varchar(64) NOT NULL COMMENT '2wd / 4wd',
   `milage` int(11) NOT NULL COMMENT 'Hur många mil bilen gått',
   `price` int(11) NOT NULL COMMENT 'Vad bilen säljs för',
   `gearbox` varchar(16) NOT NULL COMMENT 'manuel / automat',
@@ -54,7 +54,7 @@ CREATE TABLE `car` (
 CREATE TABLE `user` (
   `id` int(11) NOT NULL COMMENT 'User ID (PRIMARY)',
   `username` varchar(32) NOT NULL COMMENT 'username (UNIQUE)',
-  `hash` varchar(256) NOT NULL COMMENT 'hashed version of users password',
+  `hash` varchar(256) DEFAULT NULL COMMENT 'hashed version of users password',
   `oauth_id` varchar(32) DEFAULT NULL COMMENT 'Oauth ID from Github',
   `token` varchar(128) DEFAULT NULL COMMENT 'OAuth/Auth Token'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -81,13 +81,15 @@ CREATE TABLE `user_car_full_info` (
 ,`username` varchar(32)
 ,`item_id` int(11)
 ,`link` varchar(256)
-,`brand` varchar(32)
+,`brand` varchar(64)
 ,`regnum` varchar(16)
-,`address` varchar(128)
-,`model` varchar(32)
-,`drivewheel` varchar(16)
+,`address` varchar(256)
+,`model` varchar(64)
+,`drivewheel` varchar(64)
 ,`milage` int(11)
 ,`price` int(11)
+,`fuel` varchar(32)
+,`year` int(11)
 ,`gearbox` varchar(16)
 );
 
@@ -98,7 +100,7 @@ CREATE TABLE `user_car_full_info` (
 --
 DROP TABLE IF EXISTS `user_car_full_info`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_car_full_info`  AS  select `user`.`id` AS `user_id`,`user`.`username` AS `username`,`car`.`id` AS `item_id`,`car`.`link` AS `link`,`car`.`brand` AS `brand`,`car`.`regnum` AS `regnum`,`car`.`address` AS `address`,`car`.`model` AS `model`,`car`.`drivewheel` AS `drivewheel`,`car`.`milage` AS `milage`,`car`.`price` AS `price`,`car`.`gearbox` AS `gearbox` from ((`user` join `car`) join `user_car`) where `user`.`id` = `user_car`.`user_id` and `car`.`id` = `user_car`.`car_id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_car_full_info`  AS  select `user`.`id` AS `user_id`,`user`.`username` AS `username`,`car`.`id` AS `item_id`,`car`.`link` AS `link`,`car`.`brand` AS `brand`,`car`.`regnum` AS `regnum`,`car`.`address` AS `address`,`car`.`model` AS `model`,`car`.`drivewheel` AS `drivewheel`,`car`.`milage` AS `milage`,`car`.`price` AS `price`,`car`.`fuel` AS `fuel`,`car`.`year` AS `year`,`car`.`gearbox` AS `gearbox` from ((`user` join `car`) join `user_car`) where `user`.`id` = `user_car`.`user_id` and `car`.`id` = `user_car`.`car_id` ;
 
 --
 -- Index för dumpade tabeller
