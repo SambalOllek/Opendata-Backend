@@ -20,7 +20,7 @@ public class UserCarBean {
     public UserCars getUserCars(String token) {
         UserCars usercars = null;
         try ( Connection connection = ConnectionFactory.getConnection()) {
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM user_car_full_info, user WHERE token = ?");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM user_car_full_info WHERE user_id IN (SELECT id FROM user WHERE token = ?)");
             stmt.setString(1, token);
             List<Car> cars = new ArrayList();
             String username = "";
@@ -64,10 +64,9 @@ public class UserCarBean {
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
-        
         if (userId != 0) {
             try ( Connection connection = ConnectionFactory.getConnection()) {
-                PreparedStatement stmt = connection.prepareStatement("INSERT INTO user_car VALUES(?, ?");
+                PreparedStatement stmt = connection.prepareStatement("INSERT INTO user_car VALUES (?, ?)");
                 stmt.setInt(1, userId);
                 stmt.setInt(2, car.getId());
                 return stmt.executeUpdate();
@@ -91,16 +90,15 @@ public class UserCarBean {
             LOGGER.error(e.getMessage());
         }
         try ( Connection connection = ConnectionFactory.getConnection()) {
-            PreparedStatement stmt = connection.prepareStatement("DELETE FROM usercar WHERE userid = ? && carid = ?");
-            stmt.setInt(2, carId);
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM user_car WHERE user_id = ? AND car_id = ?");
             stmt.setInt(1, userId);
-            ResultSet data = stmt.executeQuery();
+            stmt.setInt(2, carId);
+            stmt.executeUpdate();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            return 1;
+            return 0;
         }
-
-        return 0;
+        return 1;
 
     }
 }
