@@ -21,7 +21,7 @@ public class cronWebScrapeJob implements Job{
     private static final Logger LOGGER = LoggerFactory.getLogger(CarBean.class);
     
     @Override
-    public void execute(JobExecutionContext arg0) throws JobExecutionException {
+    public void execute(JobExecutionContext jec) throws JobExecutionException {
         try {
             WebScraperBean.scrape(); 
             LOGGER.info("Jobs done!");
