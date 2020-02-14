@@ -54,7 +54,7 @@ public class CredentialsBean {
         return base64Encoder.encodeToString(randomBytes);
     }
 
-    public boolean verifyToken(String token) {;
+    public boolean verifyToken(String token) {
         try ( Connection connection = ConnectionFactory.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM user WHERE token = ?");
             stmt.setString(1, token);
